@@ -1,0 +1,80 @@
+@import 'reset.less';
+main>section.tab {
+    padding: 50px 0px;
+    &.nopad {
+        max-width: unset;
+        width: 100%;
+    }
+    &:not(.nopad) {
+        max-width: var(--wrp);
+        width: 100%;
+        margin: 0px auto;
+    }
+}
+.wrp {
+    display: contents;
+}
+#stages {
+    display: flex;
+    gap: 10px;
+}
+.stage__holder {
+    --stage__holder--gap: 12px;
+    --stage__holder--br: 20px;
+    --stage__holder--padd: 12px;
+    --stage__holder--size: 300px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: var(--stage__holder--size);
+    gap: var(--stage__holder--gap);
+    // height: 1000px;
+    .stage__holder--heading {
+        -webkit-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
+        box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--stage__holder--padd);
+        background-color: var(--white);
+        border-top-left-radius: var(--stage__holder--br);
+        border-top-right-radius: var(--stage__holder--br);
+        border-bottom: 3.12px solid var(--darkorange);
+        .stage__holder--amount {
+            padding: 5px 11px;
+            background-color: var(--darkorange);
+            border-radius: 12px;
+            color: var(--white);
+        }
+    }
+    .stage__holder--holder {
+        display: flex;
+        flex-direction: column;
+        gap: var(--stage__holder--gap);
+        // overflow-y: scroll;
+        .item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--stage__holder--gap);
+            padding: calc(var(--stage__holder--padd) + 10px) 0px;
+            border-radius: var(--stage__holder--br);
+            background-color: var(--white);
+            -webkit-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
+            box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
+            &>* {
+                // width: calc(100% - var(--stage__holder--padd) * 2);
+                padding: 0px var(--stage__holder--padd);
+                user-select: none;
+            }
+            .item--heading {
+                font-size: 1.2em;
+                font-weight: 600;
+                font-family: 'Roboto-Bold';
+                border-bottom: 2px solid var(--grey);
+                padding-bottom: 5px;
+            }
+        }
+    }
+}

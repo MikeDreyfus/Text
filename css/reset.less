@@ -1,0 +1,80 @@
+// out: false
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url(fonts/Roboto/Roboto-Regular.ttf);
+}
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url(fonts/Roboto/Roboto-Bold.ttf);
+}
+span, p, a, ::placeholder, input {
+    font-family: 'Roboto-Regular';
+    font-weight: 400;
+    font-size: 1em;
+    color: var(--txt);
+}
+h1, h2, h3, h4 {
+    font-family: 'Roboto-Bold';
+    font-weight: 700;
+    color: var(--txt);
+}
+h4 {
+    font-size: 1.05em;
+}
+h3 {
+    font-size: 1.1em;
+}
+h2 {
+    font-size: 1.15em;
+}
+h1 {
+    font-size: 1.2em;
+}
+* {
+    margin: 0;padding: 0;
+    resize: none;
+    text-decoration: unset;
+    border: unset;
+    outline: unset;
+    height: auto;
+    width: auto;
+    color: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+}
+:root {
+    --txt: #312614;
+    --substrate: #f2f2f2;
+    --darkorange: #f88d09;
+    --white: #ffffff;
+    --grey: #f1f1f1;
+
+    --gap: 16px;
+    --wrp: 90vw;
+}
+html {
+    font-size: 16px;
+}
+body {
+    &.backpopup {
+        overflow-y: hidden;
+    }
+    background-color: var(--substrate);
+}
+header {
+
+}
+main {
+
+}
+footer {
+
+}
+
+.flex {
+    display: flex;
+}
+.flexcol {
+    display: flex;
+    flex-direction: column;
+}
