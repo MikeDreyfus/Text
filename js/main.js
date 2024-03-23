@@ -4,7 +4,7 @@ const stages = [
     { name: 'Счет выставлен', class: 'payment', items: {}},
     { name: 'Отложена', class: 'put_aside', items: {}},
     { name: 'Проиграна', class: 'lost', items: {}},
-    { name: 'Заключена', class: 'concluded', items: {}}
+    { name: 'Заключена', class: 'concluded', items: {}},
 ]
 const deals = []
 const deals_name = ['Крутая сделка', 'Сделка но не очень', 'Провальная сделка', 'Ультра дупер сделка']
@@ -64,23 +64,70 @@ stage_initialization()
 function deals_initialization() {
     $(deals).each(function(index){
         let deal = document.createElement('div');
-        $(deal).addClass('wrp');
+        $(deal).addClass('deal');
         deal.innerHTML = `
-            <div class="item">
-                <h2 class="item--heading">Сделка №</h2>
-                <p class="prise"></p>
-                <p class="date"></p>
-            </div>
+            <h2 class="deal--heading">Сделка №</h2>
+            <p class="deal--prise"></p>
+            <p class="deal--date"></p>
         `;
-        // $(deal).find('.name').text(deals[index].name)
-        $(deal).find('.prise').text(deals[index].prise)
-        $(deal).find('.date').text(deals[index].date)
-        $(deal).find('.item--heading').text("Сделка №" + deals[index].id)
+        $(deal).find('.deal--prise').text(deals[index].prise)
+        $(deal).find('.deal--date').text(deals[index].date)
+        $(deal).find('.deal--heading').text("Сделка №" + deals[index].id)
+        $(deal).attr('id', 'deal-' + deals[index].id)
+
         $('.stage__holder').filter(function(){
             return $(this).data('stage') == deals[index].stage
         }).find('.stage__holder--holder').append(deal)
-        
-        // console.log (deals)
+
+        $(deal).on('dblclick', startMove())
+
+        function startMove(e) {
+            $(deal).on('dblclick', function(e){
+                let item = document.getElementById($(this).attr('id'))
+                let place = $(item).parents('.stage__holder--holder')
+                let item_clone = item.cloneNode(true)
+                console.log (place)
+                
+                $(item).remove()
+                $(item_clone).css('zIndex', '999')
+                function move(e) {
+                    let x = e.clientX; 
+                    let y = e.clientY + window.pageYOffset;
+                    $(item_clone).css('top', y - $(item_clone).height() / 2  + 'px')
+                    $(item_clone).css('left', x - $(item_clone).width() / 2 + 'px')
+                }
+                $(item_clone).css('position', 'absolute')
+                document.body.appendChild(item_clone)
+                move(e)
+                stage_col()
+                $('body').on('mousemove', function (e){
+                    move(e)
+                })
+                $('document').on('scroll', function(e){
+                    move(e)
+                })
+                $(item_clone).click(function(e){
+                    $(item_clone).remove()
+                    let x = e.clientX; 
+                    let y = e.clientY;
+                    let tmp = document.elementFromPoint(x, y)
+                    if ($(tmp).hasClass('stage__holder') || $(tmp).parents('.stage__holder').length != 0) {
+                        if ($(tmp).hasClass('stage__holder')) {
+                            $(tmp).find('.stage__holder--holder').prepend(item)
+                            $(item).on('dblclick', startMove())
+                        } else {
+                            $(tmp).parents('.stage__holder').find('.stage__holder--holder').prepend(item)
+                            $(item).on('dblclick', startMove())
+                        }
+                    } else {
+                        $(place).append(item)
+                        $(item).on('dblclick', startMove())
+                    }
+                    $(document).off('mousemove')
+                    stage_col()
+                })
+            })
+        }
     });
 }
 
@@ -88,7 +135,7 @@ deals_initialization()
 
 function stage_col() {
     $('.stage__holder .stage__holder--holder').each(function(){
-        $(this).parents('.stage__holder').find('.stage__holder--amount').text($(this).find('.item').length)
+        $(this).parents('.stage__holder').find('.stage__holder--amount').text($(this).find('.deal').length)
     })
 }
 

@@ -89,15 +89,20 @@ main > section.tab:not(.nopad) {
 .wrp {
   display: contents;
 }
+:root {
+  --stage__holder--gap: 12px;
+  --stage__holder--br: 20px;
+  --stage__holder--padd: 12px;
+  --stage__holder--size: 300px;
+}
+body {
+  overflow-y: scroll;
+}
 #stages {
   display: flex;
   gap: 10px;
 }
 .stage__holder {
-  --stage__holder--gap: 12px;
-  --stage__holder--br: 20px;
-  --stage__holder--padd: 12px;
-  --stage__holder--size: 300px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -105,6 +110,7 @@ main > section.tab:not(.nopad) {
   gap: var(--stage__holder--gap);
 }
 .stage__holder .stage__holder--heading {
+  user-select: none;
   -webkit-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
@@ -124,11 +130,14 @@ main > section.tab:not(.nopad) {
   color: var(--white);
 }
 .stage__holder .stage__holder--holder {
+  z-index: 300;
   display: flex;
   flex-direction: column;
   gap: var(--stage__holder--gap);
+  transition: 0.5s;
 }
-.stage__holder .stage__holder--holder .item {
+.deal {
+  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: var(--stage__holder--gap);
@@ -139,11 +148,11 @@ main > section.tab:not(.nopad) {
   -moz-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
 }
-.stage__holder .stage__holder--holder .item > * {
+.deal > * {
   padding: 0px var(--stage__holder--padd);
   user-select: none;
 }
-.stage__holder .stage__holder--holder .item .item--heading {
+.deal .deal--heading {
   font-size: 1.2em;
   font-weight: 600;
   font-family: 'Roboto-Bold';
