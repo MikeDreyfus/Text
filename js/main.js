@@ -86,6 +86,8 @@ function deals_initialization() {
                 let item = document.getElementById($(this).attr('id'))
                 let place = $(item).parents('.stage__holder--holder')
                 let item_clone = item.cloneNode(true)
+                $(item_clone).height($(item).height())
+                $(item_clone).width($(item).width())
                 console.log (place)
                 
                 $(item).remove()
