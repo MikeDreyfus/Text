@@ -74,10 +74,12 @@ body {
     -webkit-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
     box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.15);
+    cursor: grab;
     &>* {
         // width: calc(100% - var(--stage__holder--padd) * 2);
         padding: 0px var(--stage__holder--padd);
         user-select: none;
+        z-index: 1;
     }
     .deal--heading {
         font-size: 1.2em;

@@ -88,10 +88,11 @@ function deals_initialization() {
                 let item_clone = item.cloneNode(true)
                 $(item_clone).height($(item).height())
                 $(item_clone).width($(item).width())
+                $(item_clone).css('cursor', "grabbing");
                 console.log (place)
                 
                 $(item).remove()
-                $(item_clone).css('zIndex', '999')
+                $(item_clone).css('zIndex', '999999')
                 function move(e) {
                     let x = e.clientX; 
                     let y = e.clientY + window.pageYOffset;
@@ -108,23 +109,45 @@ function deals_initialization() {
                 $('document').on('scroll', function(e){
                     move(e)
                 })
+
                 $(item_clone).click(function(e){
                     $(item_clone).remove()
                     let x = e.clientX; 
                     let y = e.clientY;
                     let tmp = document.elementFromPoint(x, y)
                     if ($(tmp).hasClass('stage__holder') || $(tmp).parents('.stage__holder').length != 0) {
-                        if ($(tmp).hasClass('stage__holder')) {
-                            $(tmp).find('.stage__holder--holder').prepend(item)
+                        if ($(tmp).parents('.deal') || $(tmp).hasClass('deal')) {
+                            if ($(tmp).parents('.deal').length != 0) {
+                                $(tmp).parents('.deal').before(item)
+                                console.log (tmp, $(tmp).parents('.deal'))
+                            } else {
+                                $(tmp).before(item)
+                                console.log (tmp, $(tmp))
+                            }
                             $(item).on('dblclick', startMove())
-                        } else {
-                            $(tmp).parents('.stage__holder').find('.stage__holder--holder').prepend(item)
+                            $(item).css('z-index', '2')
+                        }
+                        if ($(tmp).hasClass('stage__holder')) {
+                            $(tmp).find('.stage__holder--holder').append(item)
                             $(item).on('dblclick', startMove())
                         }
                     } else {
                         $(place).append(item)
                         $(item).on('dblclick', startMove())
                     }
+                    // if ($(tmp).hasClass('stage__holder') || $(tmp).parents('.stage__holder').length != 0) {
+                    //     if ($(tmp).hasClass('stage__holder')) {
+                    //         $(tmp).find('.stage__holder--holder').append(item)
+                    //         $(item).on('dblclick', startMove())
+                    //     } else {
+                    //         console.log ($(this), tmp, $(tmp).parents('.stage__holder--holder'))
+                    //         // $(tmp).parents('.stage__holder').find('.stage__holder--holder').prepend(item)
+                    //         $(item).on('dblclick', startMove())
+                    //     }
+                    // } else {
+                    //     $(place).append(item)
+                    //     $(item).on('dblclick', startMove())
+                    // }
                     $(document).off('mousemove')
                     stage_col()
                 })
